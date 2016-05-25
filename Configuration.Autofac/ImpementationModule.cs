@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 
-namespace LifetimeScopesExamples.Implementation.Autofac
+namespace LifetimeScopesExamples.Configuration.Autofac
 {
     public class ImpementationModule : Module
     {

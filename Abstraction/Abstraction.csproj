@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDatabaseCommand.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="IAuthorRepository.cs" />
+    <Compile Include="IDependencyResolver.cs" />
+    <Compile Include="ILog.cs" />
+    <Compile Include="IBookRepository.cs" />
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

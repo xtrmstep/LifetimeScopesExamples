@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LifetimeScopesExamples.Abstraction;
+using LifetimeScopesExamples.Abstraction.Model;
 
 namespace LifetimeScopesExamples.Console
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            var resolver = Configuration.Autofac.Configuration.Setup();
+
+            var books = resolver.Resolve<IAuthorRepository>().GetBooks(new Author());
+
+            System.Console.WriteLine("Press any key...");
+            System.Console.ReadKey();
         }
     }
 }

@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Abstraction.Model;
 
 namespace LifetimeScopesExamples.Implementation.Repositories
 {
-    class BookRepository : IRepository<Book>
+    internal class BookRepository : IBookRepository
     {
-        public IList<Book> GetParents(Book parent)
+        private readonly ILog _log;
+
+        public BookRepository(ILog log)
         {
-            Console.WriteLine("BookRepository:GetParents()");
-            return null;
+            _log = log;
         }
 
-        public void SetParent(IList<Book> list, Book parent)
+        public IList<Book> FindByParent(int parentId)
         {
-            Console.WriteLine("BookRepository:SetParent()");
+            _log.Write("BookRepository:FindByParent()");
+            return null;
         }
     }
 }
