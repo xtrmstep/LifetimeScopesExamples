@@ -8,7 +8,8 @@ namespace LifetimeScopesExamples.Console
     {
         private static void Main(string[] args)
         {
-            var resolver = Configuration.Methods();
+            var resolver = Configuration.Expressions();
+            System.Console.WriteLine("DI container is built.");
 
             /*  both resolving use the same method of IBookRepository
              *  it depends on lifetime scope configuration whether ILog would be the same instance

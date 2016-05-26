@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
-using LifetimeScopesExamples.Implementation.Repositories.Properties;
 using LifetimeScopesExamples.Implementation.Repositories.Methods;
+using LifetimeScopesExamples.Implementation.Repositories.Properties;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
 {
