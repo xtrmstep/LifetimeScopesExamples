@@ -54,9 +54,9 @@
       <Project>{7edbb817-fc2b-40dc-9e04-fbfd467e9be2}</Project>
       <Name>Abstraction</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Configuration.Autofac\Configuration.Autofac.csproj">
-      <Project>{7f3fc2ac-83c2-4cef-b75b-9897555a5ae5}</Project>
-      <Name>Configuration.Autofac</Name>
+    <ProjectReference Include="..\Implementation\Implementation.csproj">
+      <Project>{5be64a33-18c8-4bff-a103-f5022766ba01}</Project>
+      <Name>Implementation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,6 @@
 ﻿using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Abstraction.Model;
+using LifetimeScopesExamples.Implementation.Configuration.Autofac;
 
 namespace LifetimeScopesExamples.Console
 {
@@ -7,7 +8,7 @@ namespace LifetimeScopesExamples.Console
     {
         private static void Main(string[] args)
         {
-            var resolver = Configuration.Autofac.Configuration.Setup();
+            var resolver = Configuration.Properties();
 
             var books = resolver.Resolve<IAuthorRepository>().GetBooks(new Author());
 
