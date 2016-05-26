@@ -10,7 +10,16 @@ namespace LifetimeScopesExamples.Console
         {
             var resolver = Configuration.Methods();
 
+            /*  both resolving use the same method of IBookRepository
+             *  it depends on lifetime scope configuration whether ILog would be the same instance
+             *  (the number in the output shows the number of the instance)
+             */
+
+            // the 1st resolving
             var books = resolver.Resolve<IAuthorRepository>().GetBooks(new Author());
+
+            // the 2nd resolving
+            resolver.Resolve<IBookRepository>().FindByParent(0);
 
             System.Console.WriteLine("Press any key...");
             System.Console.ReadKey();
