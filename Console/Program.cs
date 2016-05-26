@@ -8,7 +8,7 @@ namespace LifetimeScopesExamples.Console
     {
         private static void Main(string[] args)
         {
-            var resolver = Configuration.Properties();
+            var resolver = Configuration.Methods();
 
             var books = resolver.Resolve<IAuthorRepository>().GetBooks(new Author());
 

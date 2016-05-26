@@ -114,6 +114,8 @@
     <Compile Include="Repositories\Constructors\AuthorRepositoryCtro.cs" />
     <Compile Include="Repositories\Constructors\BookRepositoryCtro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Methods\AuthorRepositoryMtd.cs" />
+    <Compile Include="Repositories\Methods\BookRepositoryMtd.cs" />
     <Compile Include="Repositories\Properties\AuthorRepositoryProp.cs" />
     <Compile Include="Repositories\Properties\BookRepositoryProp.cs" />
   </ItemGroup>

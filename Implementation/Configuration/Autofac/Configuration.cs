@@ -2,6 +2,7 @@
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
 using LifetimeScopesExamples.Implementation.Repositories.Properties;
+using LifetimeScopesExamples.Implementation.Repositories.Methods;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
 {
@@ -37,6 +38,28 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
 
             builder.Register(c => new AuthorRepositoryProp {Log = c.Resolve<ILog>(), BookRepository = c.Resolve<IBookRepository>()}).As<IAuthorRepository>();
             builder.Register(c => new BookRepositoryProp {Log = c.Resolve<ILog>()}).As<IBookRepository>();
+            builder.Register(c => new ConsoleLog()).As<ILog>();
+
+            var container = builder.Build();
+            return new DependencyResolver(container);
+        }
+
+        public static IDependencyResolver Methods()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.Register(c =>
+            {
+                var rep = new AuthorRepositoryMtd();
+                rep.SetDependencies(c.Resolve<ILog>(), c.Resolve<IBookRepository>());
+                return rep;
+            }).As<IAuthorRepository>();
+            builder.Register(c =>
+            {
+                var rep = new BookRepositoryMtd();
+                rep.SetLog(c.Resolve<ILog>());
+                return rep;
+            }).As<IBookRepository>();
             builder.Register(c => new ConsoleLog()).As<ILog>();
 
             var container = builder.Build();
