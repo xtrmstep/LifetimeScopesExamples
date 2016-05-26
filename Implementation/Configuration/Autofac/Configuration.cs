@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using Autofac;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
 using LifetimeScopesExamples.Implementation.Repositories.Methods;
@@ -61,6 +63,16 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
                 return rep;
             }).As<IBookRepository>();
             builder.Register(c => new ConsoleLog()).As<ILog>();
+
+            var container = builder.Build();
+            return new DependencyResolver(container);
+        }
+
+        public static IDependencyResolver Auto()
+        {
+            var builder = new ContainerBuilder();
+            var asm = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(asm).AsImplementedInterfaces();
 
             var container = builder.Build();
             return new DependencyResolver(container);
