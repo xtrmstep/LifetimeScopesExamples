@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using Autofac;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
@@ -13,11 +12,9 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         public static IDependencyResolver Simple()
         {
             var builder = new ContainerBuilder();
-
             builder.RegisterType<AuthorRepositoryCtro>().As<IAuthorRepository>();
             builder.RegisterType<BookRepositoryCtro>().As<IBookRepository>();
             builder.RegisterType<ConsoleLog>().As<ILog>();
-
             var container = builder.Build();
             return new DependencyResolver(container);
         }
@@ -25,11 +22,9 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         public static IDependencyResolver Expressions()
         {
             var builder = new ContainerBuilder();
-
             builder.Register(c => new AuthorRepositoryCtro(c.Resolve<ILog>(), c.Resolve<IBookRepository>())).As<IAuthorRepository>();
             builder.Register(c => new BookRepositoryCtro(c.Resolve<ILog>())).As<IBookRepository>();
             builder.Register(c => new ConsoleLog()).As<ILog>();
-
             var container = builder.Build();
             return new DependencyResolver(container);
         }
@@ -37,11 +32,9 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         public static IDependencyResolver Properties()
         {
             var builder = new ContainerBuilder();
-
             builder.Register(c => new AuthorRepositoryProp {Log = c.Resolve<ILog>(), BookRepository = c.Resolve<IBookRepository>()}).As<IAuthorRepository>();
             builder.Register(c => new BookRepositoryProp {Log = c.Resolve<ILog>()}).As<IBookRepository>();
             builder.Register(c => new ConsoleLog()).As<ILog>();
-
             var container = builder.Build();
             return new DependencyResolver(container);
         }
@@ -49,7 +42,6 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         public static IDependencyResolver Methods()
         {
             var builder = new ContainerBuilder();
-
             builder.Register(c =>
             {
                 var rep = new AuthorRepositoryMtd();
@@ -63,7 +55,6 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
                 return rep;
             }).As<IBookRepository>();
             builder.Register(c => new ConsoleLog()).As<ILog>();
-
             var container = builder.Build();
             return new DependencyResolver(container);
         }
@@ -71,9 +62,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         public static IDependencyResolver Auto()
         {
             var builder = new ContainerBuilder();
-            var asm = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(asm).AsImplementedInterfaces();
-
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             var container = builder.Build();
             return new DependencyResolver(container);
         }
@@ -87,7 +76,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
                 _container = container;
             }
 
-            public T Resolve<T>()
+            public T Resolve<T>() where T : class
             {
                 return _container.Resolve<T>();
             }
