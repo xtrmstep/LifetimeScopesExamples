@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System.Reflection;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
 using LifetimeScopesExamples.Implementation.Repositories.Methods;
@@ -59,7 +60,23 @@ namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
 
         public static IDependencyResolver Auto()
         {
-            throw new NotImplementedException();
+            var container = new Container();
+            var repositoryAssembly = Assembly.GetExecutingAssembly();
+
+            //todo too much configuration needed
+            var implementationTypes = from type in repositoryAssembly.GetTypes()
+                where type.FullName.Contains("Repositories.Constructors")
+                      || type.GetInterfaces().Contains(typeof (ILog))
+                select type;
+
+            var registrations =
+                from type in implementationTypes
+                select new {Service = type.GetInterfaces().Single(), Implementation = type};
+
+            foreach (var reg in registrations)
+                container.Register(reg.Service, reg.Implementation);
+
+            return new DependencyResolver(container);
         }
 
         private class DependencyResolver : IDependencyResolver
