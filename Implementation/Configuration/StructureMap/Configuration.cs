@@ -48,6 +48,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
 
         public static IDependencyResolver Methods()
         {
+            //todo structuremap method injection
             throw new NotImplementedException();
             //var container = new Container();
             //container.Configure(c =>
