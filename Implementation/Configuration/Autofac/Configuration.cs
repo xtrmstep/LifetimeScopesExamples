@@ -3,7 +3,6 @@ using Autofac;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
 using LifetimeScopesExamples.Implementation.Repositories.Methods;
-using LifetimeScopesExamples.Implementation.Repositories.Properties;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
 {
@@ -32,9 +31,9 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         public static IDependencyResolver Properties()
         {
             var builder = new ContainerBuilder();
-            builder.Register(c => new AuthorRepositoryProp {Log = c.Resolve<ILog>(), BookRepository = c.Resolve<IBookRepository>()}).As<IAuthorRepository>();
-            builder.Register(c => new BookRepositoryProp {Log = c.Resolve<ILog>()}).As<IBookRepository>();
-            builder.Register(c => new ConsoleLog()).As<ILog>();
+            builder.RegisterType<AuthorRepositoryCtro>().As<IAuthorRepository>().PropertiesAutowired();
+            builder.RegisterType<BookRepositoryCtro>().As<IBookRepository>().PropertiesAutowired();
+            builder.RegisterType<ConsoleLog>().As<ILog>();
             var container = builder.Build();
             return new DependencyResolver(container);
         }

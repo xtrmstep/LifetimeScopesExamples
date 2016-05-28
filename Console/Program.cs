@@ -1,6 +1,6 @@
 ﻿using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Abstraction.Model;
-using LifetimeScopesExamples.Implementation.Configuration.SimpleInjector;
+using LifetimeScopesExamples.Implementation.Configuration.StructureMap;
 
 namespace LifetimeScopesExamples.Console
 {
