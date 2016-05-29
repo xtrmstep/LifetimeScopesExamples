@@ -1,6 +1,7 @@
-﻿using System;
-using LifetimeScopesExamples.Abstraction;
+﻿using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Implementation.Repositories.Constructors;
+using LifetimeScopesExamples.Implementation.Repositories.Methods;
+using LifetimeScopesExamples.Implementation.Repositories.Properties;
 using StructureMap;
 using StructureMap.Graph;
 
@@ -38,37 +39,30 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             var container = new Container();
             container.Configure(c =>
             {
-                c.For<IAuthorRepository>().Use<AuthorRepositoryCtro>();
-                c.For<IBookRepository>().Use<BookRepositoryCtro>();
+                c.For<IAuthorRepository>().Use<AuthorRepositoryProp>();
+                c.For<IBookRepository>().Use<BookRepositoryProp>();
                 c.For<ILog>().Use(() => new ConsoleLog());
-                c.Policies.SetAllProperties(convention => { });
+                c.Policies.SetAllProperties(x =>
+                {
+                    x.OfType<IAuthorRepository>();
+                    x.OfType<IBookRepository>();
+                    x.OfType<ILog>();
+                });
             });
             return new DependencyResolver(container);
         }
 
         public static IDependencyResolver Methods()
         {
-            //todo structuremap method injection
-            throw new NotImplementedException();
-            //var container = new Container();
-            //container.Configure(c =>
-            //{
-            //    c.For<IAuthorRepository>().Use(cntr =>
-            //    {
-            //        var rep = new AuthorRepositoryMtd();
-            //        rep.SetDependencies(container.GetInstance<ILog>(), container.GetInstance<IBookRepository>());
-            //        return rep;
-            //    });
-            //    c.For<IBookRepository>().Use(cntr =>
-            //    {
-            //        var rep = new BookRepositoryMtd();
-            //        rep.SetLog(container.GetInstance<ILog>());
-            //        return rep;
-            //    });
-            //    c.For<ILog>().Use(() => new ConsoleLog());
-            //});
+            var container = new Container();
+            container.Configure(c =>
+            {
+                c.For<IAuthorRepository>().Use<AuthorRepositoryMtd>().OnCreation((ctx, obj) => obj.SetDependencies(ctx.GetInstance<ILog>(), ctx.GetInstance<IBookRepository>()));
+                c.For<IBookRepository>().Use<BookRepositoryMtd>().OnCreation((ctx, obj) => obj.SetLog(ctx.GetInstance<ILog>()));
+                c.For<ILog>().Use<ConsoleLog>();
+            });
 
-            //return new DependencyResolver(container);
+            return new DependencyResolver(container);
         }
 
         public static IDependencyResolver Auto()
