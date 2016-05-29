@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using LifetimeScopesExamples.Abstraction;
 using LifetimeScopesExamples.Abstraction.Model;
+using Microsoft.Practices.Unity;
 
 namespace LifetimeScopesExamples.Implementation.Repositories.Properties
 {
