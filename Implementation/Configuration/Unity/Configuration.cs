@@ -51,6 +51,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Unity
 
         public static IDependencyResolver Auto()
         {
+            //todo which implementation will be created?
             var container = new UnityContainer();
             container.RegisterTypes(
                 AllClasses.FromAssemblies(Assembly.GetExecutingAssembly()),
