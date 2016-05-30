@@ -60,6 +60,13 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
             return new DependencyResolver(container);
         }
 
+        public static IDependencyResolver Module()
+        {
+            var container = new WindsorContainer();
+            container.Install(new ImplementationModule());
+            return new DependencyResolver(container);
+        }
+
         private class DependencyResolver : IDependencyResolver
         {
             private readonly WindsorContainer _container;

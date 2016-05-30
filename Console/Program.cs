@@ -8,7 +8,7 @@ namespace LifetimeScopesExamples.Console
     {
         private static void Main(string[] args)
         {
-            var resolver = Configuration.Auto();
+            var resolver = Configuration.Module();
             System.Console.WriteLine("DI container is built.");
 
             /*  both resolving use the same method of IBookRepository

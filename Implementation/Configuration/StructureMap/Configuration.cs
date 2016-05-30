@@ -81,6 +81,14 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             return new DependencyResolver(container);
         }
 
+        public static IDependencyResolver Module()
+        {
+            var registry = new Registry();
+            registry.IncludeRegistry<ImplementationModule>();
+            var container = new Container(registry);
+            return new DependencyResolver(container);
+        }
+
         private class DependencyResolver : IDependencyResolver
         {
             private readonly Container _container;

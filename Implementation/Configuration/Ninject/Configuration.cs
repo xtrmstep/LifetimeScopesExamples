@@ -59,6 +59,12 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Ninject
             return new DependencyResolver(container);
         }
 
+        public static IDependencyResolver Module()
+        {
+            var container = new StandardKernel(new ImplementationModule());
+            return new DependencyResolver(container);
+        }
+
         private class DependencyResolver : IDependencyResolver
         {
             private readonly StandardKernel _container;

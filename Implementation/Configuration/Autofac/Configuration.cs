@@ -62,7 +62,14 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
         {
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
-            //todo which exactly implementation is registered?
+            var container = builder.Build();
+            return new DependencyResolver(container);
+        }
+
+        public static IDependencyResolver Module()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new ImplementationModule());
             var container = builder.Build();
             return new DependencyResolver(container);
         }
