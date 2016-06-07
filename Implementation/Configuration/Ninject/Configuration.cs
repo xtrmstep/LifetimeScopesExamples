@@ -7,9 +7,9 @@ using Ninject.Extensions.Conventions;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Ninject
 {
-    public static class Configuration
+    public class Configuration : IConfiguration
     {
-        public static IDependencyResolver Simple()
+        public IDependencyResolver Constructors()
         {
             var container = new StandardKernel();
             container.Bind<IAuthorRepository>().To<AuthorRepositoryCtro>();
@@ -19,7 +19,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Ninject
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Expressions()
+        public IDependencyResolver Expressions()
         {
             var container = new StandardKernel();
             container.Bind<IAuthorRepository>().ToConstructor(x => new AuthorRepositoryCtro(x.Inject<ILog>(), x.Inject<IBookRepository>()));
@@ -32,7 +32,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Ninject
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Properties()
+        public IDependencyResolver Properties()
         {
             var container = new StandardKernel();
             container.Bind<IAuthorRepository>().To<AuthorRepositoryProp>();
@@ -42,7 +42,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Ninject
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Methods()
+        public IDependencyResolver Methods()
         {
             var container = new StandardKernel();
             container.Bind<IAuthorRepository>().To<AuthorRepositoryMtd>().OnActivation((context, mtd) => mtd.SetDependencies(context.Kernel.Get<ILog>(), context.Kernel.Get<IBookRepository>()));
@@ -52,14 +52,14 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Ninject
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Auto()
+        public IDependencyResolver Auto()
         {
             var container = new StandardKernel();
             container.Bind(x => x.FromThisAssembly().SelectAllClasses().BindDefaultInterfaces());
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Module()
+        public IDependencyResolver Module()
         {
             var container = new StandardKernel(new ImplementationModule());
             return new DependencyResolver(container);

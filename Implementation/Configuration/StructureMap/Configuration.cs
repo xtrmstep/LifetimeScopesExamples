@@ -7,9 +7,9 @@ using StructureMap.Graph;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
 {
-    public static class Configuration
+    public class Configuration : IConfiguration
     {
-        public static IDependencyResolver Simple()
+        public IDependencyResolver Constructors()
         {
             var container = new Container();
             container.Configure(c =>
@@ -22,7 +22,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Expressions()
+        public IDependencyResolver Expressions()
         {
             var container = new Container();
             container.Configure(c =>
@@ -34,7 +34,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Properties()
+        public IDependencyResolver Properties()
         {
             var container = new Container();
             container.Configure(c =>
@@ -52,7 +52,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Methods()
+        public IDependencyResolver Methods()
         {
             var container = new Container();
             container.Configure(c =>
@@ -65,7 +65,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Auto()
+        public IDependencyResolver Auto()
         {
             /*
              * Make sure the implementation classes are PUBLIC
@@ -81,7 +81,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.StructureMap
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Module()
+        public IDependencyResolver Module()
         {
             var registry = new Registry();
             registry.IncludeRegistry<ImplementationModule>();

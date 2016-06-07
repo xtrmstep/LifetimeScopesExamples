@@ -7,9 +7,9 @@ using Microsoft.Practices.Unity;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Unity
 {
-    public static class Configuration
+    public class Configuration : IConfiguration
     {
-        public static IDependencyResolver Simple()
+        public IDependencyResolver Constructors()
         {
             var container = new UnityContainer();
             container.RegisterType<IAuthorRepository, AuthorRepositoryCtro>();
@@ -19,7 +19,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Unity
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Expressions()
+        public IDependencyResolver Expressions()
         {
             var container = new UnityContainer();
             container.RegisterType<IAuthorRepository>(new InjectionFactory(c => new AuthorRepositoryCtro(c.Resolve<ILog>(), c.Resolve<IBookRepository>())));
@@ -29,7 +29,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Unity
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Properties()
+        public IDependencyResolver Properties()
         {
             var container = new UnityContainer();
             container.RegisterType<IAuthorRepository, AuthorRepositoryProp>();
@@ -39,7 +39,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Unity
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Methods()
+        public IDependencyResolver Methods()
         {
             var container = new UnityContainer();
             container.RegisterType<IAuthorRepository, AuthorRepositoryMtd>();
@@ -49,7 +49,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Unity
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Auto()
+        public IDependencyResolver Auto()
         {
             var container = new UnityContainer();
             container.RegisterTypes(
@@ -58,7 +58,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Unity
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Module()
+        public IDependencyResolver Module()
         {
             var container = new UnityContainer();
             container.AddNewExtension<ImplementationModule>();

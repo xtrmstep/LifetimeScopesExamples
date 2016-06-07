@@ -8,9 +8,9 @@ using SimpleInjector;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
 {
-    public static class Configuration
+    public class Configuration : IConfiguration
     {
-        public static IDependencyResolver Simple()
+        public IDependencyResolver Constructors()
         {
             var container = new Container();
 
@@ -21,7 +21,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Expressions()
+        public IDependencyResolver Expressions()
         {
             var container = new Container();
             container.Register<IAuthorRepository>(() => new AuthorRepositoryCtro(container.GetInstance<ILog>(), container.GetInstance<IBookRepository>()));
@@ -30,7 +30,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Properties()
+        public IDependencyResolver Properties()
         {
             var container = new Container();
             container.Register<IAuthorRepository>(() => new AuthorRepositoryProp {Log = container.GetInstance<ILog>(), BookRepository = container.GetInstance<IBookRepository>()});
@@ -39,7 +39,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Methods()
+        public IDependencyResolver Methods()
         {
             var container = new Container();
             container.Register<IAuthorRepository>(() =>
@@ -58,7 +58,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Auto()
+        public IDependencyResolver Auto()
         {
             var container = new Container();
             var repositoryAssembly = Assembly.GetExecutingAssembly();
@@ -77,6 +77,11 @@ namespace LifetimeScopesExamples.Implementation.Configuration.SimpleInjector
                 container.Register(reg.Service, reg.Implementation);
 
             return new DependencyResolver(container);
+        }
+
+        public IDependencyResolver Module()
+        {
+            throw new System.NotImplementedException();
         }
 
         private class DependencyResolver : IDependencyResolver

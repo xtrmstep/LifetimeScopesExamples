@@ -8,9 +8,9 @@ using LifetimeScopesExamples.Implementation.Repositories.Properties;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
 {
-    public static class Configuration
+    public class Configuration : IConfiguration
     {
-        public static IDependencyResolver Simple()
+        public IDependencyResolver Constructors()
         {
             var container = new WindsorContainer();
             container.Register(Component.For<IAuthorRepository>().ImplementedBy<AuthorRepositoryCtro>());
@@ -20,7 +20,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Expressions()
+        public IDependencyResolver Expressions()
         {
             var container = new WindsorContainer();
             container.Register(Component.For<IAuthorRepository>().UsingFactoryMethod(c => new AuthorRepositoryCtro(c.Resolve<ILog>(), c.Resolve<IBookRepository>())));
@@ -30,7 +30,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Properties()
+        public IDependencyResolver Properties()
         {
             var container = new WindsorContainer();
             container.Register(Component.For<IAuthorRepository>().ImplementedBy<AuthorRepositoryProp>());
@@ -40,7 +40,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Methods()
+        public IDependencyResolver Methods()
         {
             var container = new WindsorContainer();
             container.Register(Component.For<IAuthorRepository>().ImplementedBy<AuthorRepositoryMtd>().OnCreate((c, o) => ((AuthorRepositoryMtd) o).SetDependencies(c.Resolve<ILog>(), c.Resolve<IBookRepository>())));
@@ -50,7 +50,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Auto()
+        public IDependencyResolver Auto()
         {
             var container = new WindsorContainer();
             container.Register(Classes.FromAssembly(Assembly.GetExecutingAssembly())
@@ -60,7 +60,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Windsor
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Module()
+        public IDependencyResolver Module()
         {
             var container = new WindsorContainer();
             container.Install(new ImplementationModule());

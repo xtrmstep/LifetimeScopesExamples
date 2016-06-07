@@ -106,6 +106,7 @@
     <Compile Include="Configuration\Unity\Configuration.cs" />
     <Compile Include="Configuration\Unity\ImplementationModule.cs" />
     <Compile Include="Configuration\Windsor\Configuration.cs" />
+    <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\Windsor\ImplementationModule.cs" />
     <Compile Include="ConsoleLog.cs" />
     <Compile Include="Repositories\Constructors\AuthorRepositoryCtro.cs" />

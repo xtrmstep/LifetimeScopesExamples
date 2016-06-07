@@ -6,9 +6,9 @@ using LifetimeScopesExamples.Implementation.Repositories.Methods;
 
 namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
 {
-    public static class Configuration
+    public class Configuration : IConfiguration
     {
-        public static IDependencyResolver Simple()
+        public IDependencyResolver Constructors()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<AuthorRepositoryCtro>().As<IAuthorRepository>();
@@ -18,7 +18,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Expressions()
+        public IDependencyResolver Expressions()
         {
             var builder = new ContainerBuilder();
             builder.Register(c => new AuthorRepositoryCtro(c.Resolve<ILog>(), c.Resolve<IBookRepository>())).As<IAuthorRepository>();
@@ -28,7 +28,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Properties()
+        public IDependencyResolver Properties()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<AuthorRepositoryCtro>().As<IAuthorRepository>().PropertiesAutowired();
@@ -38,7 +38,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Methods()
+        public IDependencyResolver Methods()
         {
             var builder = new ContainerBuilder();
             builder.Register(c =>
@@ -58,7 +58,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Auto()
+        public IDependencyResolver Auto()
         {
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
@@ -66,7 +66,7 @@ namespace LifetimeScopesExamples.Implementation.Configuration.Autofac
             return new DependencyResolver(container);
         }
 
-        public static IDependencyResolver Module()
+        public IDependencyResolver Module()
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ImplementationModule());

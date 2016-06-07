@@ -2,13 +2,14 @@
 using LifetimeScopesExamples.Abstraction.Model;
 using LifetimeScopesExamples.Implementation.Configuration.Windsor;
 
-namespace LifetimeScopesExamples.Console
+namespace LifetimeScopesExamples.Console.ContainerInitialization
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-            var resolver = Configuration.Module();
+            var configuration = new Configuration();
+            var resolver = configuration.Module();
             System.Console.WriteLine("DI container is built.");
 
             /*  both resolving use the same method of IBookRepository
